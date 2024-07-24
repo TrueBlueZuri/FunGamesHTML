@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html style="font-size: 24px;font-family: Arial, sans-serif;" lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Button Clicker - Fun Games HTML</title>
+</head>
+<body>
+    <a href="file:///F:/FunHTMLGames/Home/Home.html">Stop game and go back.</a>
+    <h1 style="text-align:center;">Click the button to increase the counter:</h1>
+    <p style="text-align:center;">Counter: <span id="counter">0</span></p>
+    <button id="clickButton" onclick="incrementCounter()">Click me</button>
+    <p id="message"></p>
+
+    <script>
+        let counterValue = 0;
+        let lastClickTime = Date.now();
+
+        function incrementCounter() {
+            const currentTime = Date.now();
+            const clickInterval = currentTime - lastClickTime;
+
+            if (clickInterval < 72) {
+                // Clicks are too rapid (potential autoclicker)
+                document.getElementById("message").textContent = "You are cheating!";
+                document.getElementById("clickButton").disabled = true;
+            } else {
+                counterValue++;
+                document.getElementById("counter").textContent = counterValue;
+
+                if (counterValue === 1000) {
+                    document.getElementById("message").textContent = "You won!";
+                    document.getElementById("clickButton").disabled = true;
+                }
+            }
+
+            lastClickTime = currentTime;
+        }
+
+        // Disable the button when F6 is pressed
+        document.addEventListener("keydown", function (event) {
+            if (event.key === "F6") {
+                document.getElementById("clickButton").disabled = true;
+                document.getElementById("message").textContent = "You are cheating!";
+            }
+        });
+    </script>
+</body>
+</html>
